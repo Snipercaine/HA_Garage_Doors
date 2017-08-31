@@ -1,13 +1,20 @@
-  
-  customize: ##if you already have a "customize" section, then just add the "cover.double" and the rest to that section. 
+## this goes in the "homeassistant:" at the top of you configuration.yaml
+customize: ##if you already have a "customize" section, then just add the "cover.double" and the rest to that section. 
     cover.double:
       device_class: garage
       friendly_name: Garage 1 #change this to whatever you want the door called in your HA UI "wife's door", "my side", etc.  
     cover.single: ##if you only have one door you can delete this second entry
       device_class: garage
       friendly_name: Garage 2 #change this to whatever you want the door called in your HA UI "wife's door", "my side", etc.
-      
-cover:
+
+mqtt: ##if you already have mqtt setup you don't need this section
+  broker: your.mqtt.HA.pi
+  port: 1883
+  client_id: home-assistant-1
+  username: yourmqttname
+  password: yourmqttpw
+  
+cover: ## this makes the garage door card appear in HA 
   - platform: mqtt
     name: "double"
     state_topic: "sensor/garage/state1"
@@ -30,3 +37,5 @@ cover:
     state_closed: "closed"
     optomistic: false
     retain: false
+
+group: !include groups.yaml ## this will reference a group.yaml for this project we'll add an entry to change the name from "cover" to Garage Doors.
