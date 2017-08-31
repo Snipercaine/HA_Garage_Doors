@@ -1,6 +1,6 @@
 cover:
   - platform: mqtt
-    name: "double"
+    name: "double" ## you can change the name here if you'd like 
     state_topic: "sensor/garage/state1"
     command_topic: "sensor/garage/action1"
     payload_open: "OPEN"
@@ -10,7 +10,7 @@ cover:
     state_closed: "closed"
     optomistic: false
     retain: false
-  - platform: mqtt
+  - platform: mqtt  ##if you only have one door you can delete this second entry
     name: "single"
     state_topic: "sensor/garage/state2"
     command_topic: "sensor/garage/action2"
