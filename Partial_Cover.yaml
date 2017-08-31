@@ -1,6 +1,15 @@
+  
+  customize: ##if you already have a "customize" section, then just add the "cover.double" and the rest to that section. 
+    cover.double:
+      device_class: garage
+      friendly_name: Garage 1 #change this to whatever you want the door called in your HA UI "wife's door", "my side", etc.  
+    cover.single: ##if you only have one door you can delete this second entry
+      device_class: garage
+      friendly_name: Garage 2 #change this to whatever you want the door called in your HA UI "wife's door", "my side", etc.
+      
 cover:
   - platform: mqtt
-    name: "double" ## you can change the name here if you'd like 
+    name: "double"
     state_topic: "sensor/garage/state1"
     command_topic: "sensor/garage/action1"
     payload_open: "OPEN"
