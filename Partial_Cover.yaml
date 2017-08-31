@@ -38,4 +38,4 @@ cover: ## this makes the garage door card appear in HA
     optomistic: false
     retain: false
 
-group: !include groups.yaml ## this will reference a group.yaml for this project we'll add an entry to change the name from "cover" to Garage Doors.
+group: !include groups.yaml ## this will reference "groups.yaml" for this project we'll add an entry to change the name from "cover" to "Garage Doors"
