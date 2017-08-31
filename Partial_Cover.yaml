@@ -1,4 +1,4 @@
-## this goes in the "homeassistant:" at the top of you configuration.yaml
+## this goes in the "homeassistant:" section at the top of your configuration.yaml
 customize: ##if you already have a "customize" section, then just add the "cover.double" and the rest to that section. 
     cover.double:
       device_class: garage
