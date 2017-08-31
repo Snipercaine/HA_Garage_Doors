@@ -7,12 +7,12 @@ customize: ##if you already have a "customize" section, then just add the "cover
       device_class: garage
       friendly_name: Garage 2 #change this to whatever you want the door called in your HA UI "wife's door", "my side", etc.
 
-mqtt: ##if you already have mqtt setup you don't need this section
-  broker: your.mqtt.HA.pi
-  port: 1883
-  client_id: home-assistant-1
-  username: yourmqttname
-  password: yourmqttpw
+#mqtt: ##if you already have mqtt setup you don't need this section
+#  broker: your.mqtt.HA.pi
+#  port: 1883
+#  client_id: home-assistant-1
+#  username: yourmqttname
+#  password: yourmqttpw
   
 cover: ## this makes the garage door card appear in HA 
   - platform: mqtt
