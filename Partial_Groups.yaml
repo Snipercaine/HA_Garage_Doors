@@ -4,5 +4,5 @@
       control: hidden
       icon: mdi:garage
       entities:
-        - cover.double
-        - cover.single
+        - cover.double //if you only have one door you can delete one of these. 
+        - cover.single //These are named based on my doors, one is double wide the other is single. 
