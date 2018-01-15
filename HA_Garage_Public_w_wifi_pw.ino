@@ -1,3 +1,5 @@
+#include <ESP8266SSDP.h>
+
 #include <ESP8266WiFi.h>          //ESP8266 Core WiFi Library
 #include <PubSubClient.h>         //MQTT
  
@@ -5,19 +7,19 @@
  
 ////Define parameters for the http firmware update // which we aren't using 
 const char* host = "Garage1ESP";
-const char* ssid = "your-ssid";
-const char* password = "your-password";
+const char* ssid = "<replace w/ your ssid>";
+const char* password = "<replace w/ your wifi password>";
  
 //Define the pins
-#define RELAY_PIN 2
-#define DOOR_PIN 0 //just another name for D8 pin
+#define RELAY_PIN 5
+#define DOOR_PIN 15 //just another name for D8 pin
  
 //Define your own MQTT 
-#define mqtt_server "ha-ip"  //This is what you set up in HA. 
+#define mqtt_server "<mqtt server ip>"  //This is what you set up in HA. 
 #define door_topic "sensor/garage/state1" //you can change this name, but make sure you "replace all"
 #define button_topic "sensor/garage/action1" //you can change this name, but make sure you "replace all"
-const char* mqtt_user = "user"; //This is what you set up in HA. 
-const char* mqtt_pass = "passwd"; //This is what you set up in HA. 
+const char* mqtt_user = "<mqtt user>"; //This is what you set up in HA. 
+const char* mqtt_pass = "<mqtt password>"; //This is what you set up in HA. 
  
 //************END CUSTOM PARAMS********************//
 //This can be used to output the date the code was compiled
@@ -42,11 +44,15 @@ void setup() {
   pinMode(DOOR_PIN, INPUT);
  
   Serial.begin(115200);
- 
+
+  setup_wifi();
+
+
   client.setServer(mqtt_server, 1883); //1883 is the port number you have forwared for mqtt messages. You will need to change this if you've used a different port 
   client.setCallback(callback); //callback is the function that gets called for a topic sub
 }
- 
+
+
 void loop() {
   //If MQTT client can't connect to broker, then reconnect
   if (!client.connected()) {
@@ -54,6 +60,7 @@ void loop() {
   }
   checkDoorState();
   client.loop(); //the mqtt function that processes MQTT messages
+  
 }
  
 void callback(char* topic, byte* payload, unsigned int length) {
@@ -74,7 +81,32 @@ void callback(char* topic, byte* payload, unsigned int length) {
     }
   }
 }
- 
+
+
+
+void setup_wifi() {
+
+  delay(10);
+  Serial.println();
+  Serial.print("Connecting to ");
+  Serial.println(ssid);
+
+  WiFi.mode(WIFI_STA);
+  WiFi.begin(ssid, password);
+
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+
+  Serial.println("");
+  Serial.println("WiFi connected");
+  Serial.println("IP address: ");
+  Serial.println(WiFi.localIP());
+}
+
+
+
 void checkDoorState() {
   //Checks if the door state has changed, and MQTT pub the change
   last_state = door_state; //get previous state of door
